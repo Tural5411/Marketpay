@@ -1,0 +1,15 @@
+C:\Users\tural.abdulkhaligov\Desktop\Marketpay\src\MarketPay.Application\bin\Debug\net8.0\MarketPay.Application.deps.json
+C:\Users\tural.abdulkhaligov\Desktop\Marketpay\src\MarketPay.Application\bin\Debug\net8.0\MarketPay.Application.dll
+C:\Users\tural.abdulkhaligov\Desktop\Marketpay\src\MarketPay.Application\bin\Debug\net8.0\MarketPay.Application.pdb
+C:\Users\tural.abdulkhaligov\Desktop\Marketpay\src\MarketPay.Application\bin\Debug\net8.0\MarketPay.Domain.dll
+C:\Users\tural.abdulkhaligov\Desktop\Marketpay\src\MarketPay.Application\bin\Debug\net8.0\MarketPay.Domain.pdb
+C:\Users\tural.abdulkhaligov\Desktop\Marketpay\src\MarketPay.Application\obj\Debug\net8.0\MarketPay.Application.csproj.AssemblyReference.cache
+C:\Users\tural.abdulkhaligov\Desktop\Marketpay\src\MarketPay.Application\obj\Debug\net8.0\MarketPay.Application.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\tural.abdulkhaligov\Desktop\Marketpay\src\MarketPay.Application\obj\Debug\net8.0\MarketPay.Application.AssemblyInfoInputs.cache
+C:\Users\tural.abdulkhaligov\Desktop\Marketpay\src\MarketPay.Application\obj\Debug\net8.0\MarketPay.Application.AssemblyInfo.cs
+C:\Users\tural.abdulkhaligov\Desktop\Marketpay\src\MarketPay.Application\obj\Debug\net8.0\MarketPay.Application.csproj.CoreCompileInputs.cache
+C:\Users\tural.abdulkhaligov\Desktop\Marketpay\src\MarketPay.Application\obj\Debug\net8.0\MarketPa.4F00CDCF.Up2Date
+C:\Users\tural.abdulkhaligov\Desktop\Marketpay\src\MarketPay.Application\obj\Debug\net8.0\MarketPay.Application.dll
+C:\Users\tural.abdulkhaligov\Desktop\Marketpay\src\MarketPay.Application\obj\Debug\net8.0\refint\MarketPay.Application.dll
+C:\Users\tural.abdulkhaligov\Desktop\Marketpay\src\MarketPay.Application\obj\Debug\net8.0\MarketPay.Application.pdb
+C:\Users\tural.abdulkhaligov\Desktop\Marketpay\src\MarketPay.Application\obj\Debug\net8.0\ref\MarketPay.Application.dll

@@ -1,0 +1,8 @@
+C:\Users\tural.abdulkhaligov\Desktop\Marketpay\src\MarketPay.API\obj\Debug\net8.0\MarketPay.API.csproj.AssemblyReference.cache
+C:\Users\tural.abdulkhaligov\Desktop\Marketpay\src\MarketPay.API\obj\Debug\net8.0\rpswa.dswa.cache.json
+C:\Users\tural.abdulkhaligov\Desktop\Marketpay\src\MarketPay.API\obj\Debug\net8.0\MarketPay.API.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\tural.abdulkhaligov\Desktop\Marketpay\src\MarketPay.API\obj\Debug\net8.0\MarketPay.API.AssemblyInfoInputs.cache
+C:\Users\tural.abdulkhaligov\Desktop\Marketpay\src\MarketPay.API\obj\Debug\net8.0\MarketPay.API.AssemblyInfo.cs
+C:\Users\tural.abdulkhaligov\Desktop\Marketpay\src\MarketPay.API\obj\Debug\net8.0\MarketPay.API.csproj.CoreCompileInputs.cache
+C:\Users\tural.abdulkhaligov\Desktop\Marketpay\src\MarketPay.API\obj\Debug\net8.0\MarketPay.API.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\tural.abdulkhaligov\Desktop\Marketpay\src\MarketPay.API\obj\Debug\net8.0\MarketPay.API.MvcApplicationPartsAssemblyInfo.cache
