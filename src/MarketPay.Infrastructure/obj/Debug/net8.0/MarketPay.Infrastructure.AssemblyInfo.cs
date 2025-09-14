@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("MarketPay.Infrastructure")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+51cc5c844c14480e7b586243b22919dcb89eb4cc")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+9ed67fd52cc5345f5ceb1d0f932a4ef7c459d297")]
 [assembly: System.Reflection.AssemblyProductAttribute("MarketPay.Infrastructure")]
 [assembly: System.Reflection.AssemblyTitleAttribute("MarketPay.Infrastructure")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
