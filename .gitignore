@@ -1,5 +1,14 @@
-﻿################################################################################
-# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
-################################################################################
+﻿# Build results
+bin/
+obj/
 
-/.vs/MarketPay
+# Visual Studio
+.vs/
+
+# User-specific files
+*.user
+*.suo
+
+# Others
+*.db
+*.log
