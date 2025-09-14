@@ -19,7 +19,7 @@ public class ProductService : IProductService
         _mapper = mapper;
     }
 
-    public async Task<ProductDto?> GetByIdAsync(int id)
+    public async Task<ProductDto?> GetByIdAsync(Guid id)
     {
         var product = await _productRepository.GetByIdAsync(id);
         return product == null ? null : _mapper.Map<ProductDto>(product);
@@ -48,10 +48,16 @@ public class ProductService : IProductService
         return _mapper.Map<IEnumerable<ProductDto>>(products);
     }
 
-    public async Task<IEnumerable<ProductDto>> GetProductsByCategoryAsync(string category)
+    public async Task<IEnumerable<ProductDto>> GetByMarketIdAsync(Guid marketId)
     {
-        var products = await _productRepository.GetProductsByCategoryAsync(category);
+        var products = await _productRepository.GetByMarketIdAsync(marketId);
         return _mapper.Map<IEnumerable<ProductDto>>(products);
+    }
+
+    public async Task<ProductDto?> GetByBarcodeAsync(string barcode)
+    {
+        var product = await _productRepository.GetByBarcodeAsync(barcode);
+        return product == null ? null : _mapper.Map<ProductDto>(product);
     }
 
     public async Task<PaginatedResult<ProductDto>> GetActiveProductsPaginatedAsync(PaginationRequest request)
@@ -62,9 +68,9 @@ public class ProductService : IProductService
         return new PaginatedResult<ProductDto>(productDtos, result.TotalCount, result.PageNumber, result.PageSize);
     }
 
-    public async Task<PaginatedResult<ProductDto>> GetProductsByCategoryPaginatedAsync(string category, PaginationRequest request)
+    public async Task<PaginatedResult<ProductDto>> GetByMarketPaginatedAsync(Guid marketId, PaginationRequest request)
     {
-        var result = await _productRepository.GetProductsByCategoryPaginatedAsync(category, request);
+        var result = await _productRepository.GetByMarketPaginatedAsync(marketId, request);
         var productDtos = _mapper.Map<IEnumerable<ProductDto>>(result.Items);
         
         return new PaginatedResult<ProductDto>(productDtos, result.TotalCount, result.PageNumber, result.PageSize);
@@ -78,20 +84,12 @@ public class ProductService : IProductService
         return new PaginatedResult<ProductDto>(productDtos, result.TotalCount, result.PageNumber, result.PageSize);
     }
 
-    public async Task<PaginatedResult<ProductDto>> GetProductsWithFilterAsync(ProductPaginationRequest request)
-    {
-        var result = await _productRepository.GetProductsWithFilterAsync(request);
-        var productDtos = _mapper.Map<IEnumerable<ProductDto>>(result.Items);
-        
-        return new PaginatedResult<ProductDto>(productDtos, result.TotalCount, result.PageNumber, result.PageSize);
-    }
-
     public async Task<ProductDto> CreateAsync(CreateProductDto createProductDto)
     {
-        // İsim kontrolü
-        if (await _productRepository.IsProductNameExistsAsync(createProductDto.Name))
+        // Barkod kontrolü
+        if (await _productRepository.IsBarcodeExistsAsync(createProductDto.ProductBarcode))
         {
-            throw new InvalidOperationException("Bu isimde bir ürün zaten mevcut");
+            throw new InvalidOperationException("Bu barkod zaten kullanımda");
         }
 
         var product = _mapper.Map<Product>(createProductDto);
@@ -99,7 +97,7 @@ public class ProductService : IProductService
         return _mapper.Map<ProductDto>(createdProduct);
     }
 
-    public async Task<ProductDto> UpdateAsync(int id, UpdateProductDto updateProductDto)
+    public async Task<ProductDto> UpdateAsync(Guid id, UpdateProductDto updateProductDto)
     {
         var existingProduct = await _productRepository.GetByIdAsync(id);
         if (existingProduct == null)
@@ -107,10 +105,10 @@ public class ProductService : IProductService
             throw new KeyNotFoundException($"ID {id} ile ürün bulunamadı");
         }
 
-        // İsim kontrolü (mevcut ürün hariç)
-        if (await _productRepository.IsProductNameExistsAsync(updateProductDto.Name, id))
+        // Barkod kontrolü (mevcut ürün hariç)
+        if (await _productRepository.IsBarcodeExistsAsync(updateProductDto.ProductBarcode, id))
         {
-            throw new InvalidOperationException("Bu isimde başka bir ürün zaten mevcut");
+            throw new InvalidOperationException("Bu barkod başka bir üründe kullanımda");
         }
 
         _mapper.Map(updateProductDto, existingProduct);
@@ -120,7 +118,7 @@ public class ProductService : IProductService
         return _mapper.Map<ProductDto>(updatedProduct);
     }
 
-    public async Task DeleteAsync(int id)
+    public async Task DeleteAsync(Guid id)
     {
         var product = await _productRepository.GetByIdAsync(id);
         if (product == null)
@@ -128,13 +126,12 @@ public class ProductService : IProductService
             throw new KeyNotFoundException($"ID {id} ile ürün bulunamadı");
         }
 
-        await _productRepository.DeleteAsync(id);
+        await _productRepository.DeleteAsync(product);
     }
 
-    public async Task<bool> ExistsAsync(int id)
+    public async Task<bool> ExistsAsync(Guid id)
     {
-        var product = await _productRepository.GetByIdAsync(id);
-        return product != null;
+        return await _productRepository.ExistsAsync(id);
     }
 }
 

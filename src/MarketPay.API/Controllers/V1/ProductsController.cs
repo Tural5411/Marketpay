@@ -47,7 +47,7 @@ public class ProductsController : ControllerBase
     [HttpGet("{id}")]
     [ProducesResponseType(typeof(ProductDto), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<ActionResult<ProductDto>> GetProduct(int id)
+    public async Task<ActionResult<ProductDto>> GetProduct(Guid id)
     {
         var product = await _productService.GetByIdAsync(id);
         if (product == null)
@@ -93,29 +93,29 @@ public class ProductsController : ControllerBase
     }
 
     /// <summary>
-    /// Kategoriye göre ürünleri getirir
+    /// Market ID'ye göre ürünleri getirir
     /// </summary>
-    /// <param name="category">Kategori adı</param>
-    /// <returns>Kategori ürün listesi</returns>
-    [HttpGet("category/{category}")]
+    /// <param name="marketId">Market ID</param>
+    /// <returns>Market ürün listesi</returns>
+    [HttpGet("market/{marketId}")]
     [ProducesResponseType(typeof(IEnumerable<ProductDto>), StatusCodes.Status200OK)]
-    public async Task<ActionResult<IEnumerable<ProductDto>>> GetProductsByCategory(string category)
+    public async Task<ActionResult<IEnumerable<ProductDto>>> GetProductsByMarket(Guid marketId)
     {
-        var products = await _productService.GetProductsByCategoryAsync(category);
+        var products = await _productService.GetByMarketIdAsync(marketId);
         return Ok(products);
     }
 
     /// <summary>
-    /// Kategoriye göre ürünleri sayfalı olarak getirir
+    /// Market ID'ye göre ürünleri sayfalı olarak getirir
     /// </summary>
-    /// <param name="category">Kategori adı</param>
+    /// <param name="marketId">Market ID</param>
     /// <param name="pageNumber">Sayfa numarası (varsayılan: 1)</param>
     /// <param name="pageSize">Sayfa boyutu (varsayılan: 10, maksimum: 100)</param>
-    /// <returns>Sayfalı kategori ürün listesi</returns>
-    [HttpGet("category/{category}/paginated")]
+    /// <returns>Sayfalı market ürün listesi</returns>
+    [HttpGet("market/{marketId}/paginated")]
     [ProducesResponseType(typeof(PaginatedResult<ProductDto>), StatusCodes.Status200OK)]
-    public async Task<ActionResult<PaginatedResult<ProductDto>>> GetProductsByCategoryPaginated(
-        string category,
+    public async Task<ActionResult<PaginatedResult<ProductDto>>> GetProductsByMarketPaginated(
+        Guid marketId,
         [FromQuery] int pageNumber = 1, 
         [FromQuery] int pageSize = 10)
     {
@@ -125,8 +125,25 @@ public class ProductsController : ControllerBase
             PageSize = pageSize
         };
 
-        var result = await _productService.GetProductsByCategoryPaginatedAsync(category, request);
+        var result = await _productService.GetByMarketPaginatedAsync(marketId, request);
         return Ok(result);
+    }
+
+    /// <summary>
+    /// Barkoda göre ürün getirir
+    /// </summary>
+    /// <param name="barcode">Ürün barkodu</param>
+    /// <returns>Ürün bilgileri</returns>
+    [HttpGet("barcode/{barcode}")]
+    [ProducesResponseType(typeof(ProductDto), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<ActionResult<ProductDto>> GetProductByBarcode(string barcode)
+    {
+        var product = await _productService.GetByBarcodeAsync(barcode);
+        if (product == null)
+            return NotFound("Ürün bulunamadı");
+
+        return Ok(product);
     }
 
     /// <summary>
@@ -159,48 +176,6 @@ public class ProductsController : ControllerBase
         return Ok(result);
     }
 
-    /// <summary>
-    /// Gelişmiş filtreleme ve sıralama ile ürünleri getirir
-    /// </summary>
-    /// <param name="pageNumber">Sayfa numarası (varsayılan: 1)</param>
-    /// <param name="pageSize">Sayfa boyutu (varsayılan: 10, maksimum: 100)</param>
-    /// <param name="sortBy">Sıralama alanı</param>
-    /// <param name="sortDirection">Sıralama yönü</param>
-    /// <param name="searchTerm">Arama terimi</param>
-    /// <param name="category">Kategori filtresi</param>
-    /// <param name="isActive">Aktiflik durumu filtresi</param>
-    /// <param name="minPrice">Minimum fiyat</param>
-    /// <param name="maxPrice">Maksimum fiyat</param>
-    /// <returns>Filtrelenmiş ve sıralanmış ürün listesi</returns>
-    [HttpGet("filter")]
-    [ProducesResponseType(typeof(PaginatedResult<ProductDto>), StatusCodes.Status200OK)]
-    public async Task<ActionResult<PaginatedResult<ProductDto>>> GetProductsWithFilter(
-        [FromQuery] int pageNumber = 1,
-        [FromQuery] int pageSize = 10,
-        [FromQuery] ProductSortBy sortBy = ProductSortBy.Id,
-        [FromQuery] SortDirection sortDirection = SortDirection.Ascending,
-        [FromQuery] string? searchTerm = null,
-        [FromQuery] string? category = null,
-        [FromQuery] bool? isActive = null,
-        [FromQuery] decimal? minPrice = null,
-        [FromQuery] decimal? maxPrice = null)
-    {
-        var request = new ProductPaginationRequest
-        {
-            PageNumber = pageNumber,
-            PageSize = pageSize,
-            SortBy = sortBy,
-            SortDirection = sortDirection,
-            SearchTerm = searchTerm,
-            Category = category,
-            IsActive = isActive,
-            MinPrice = minPrice,
-            MaxPrice = maxPrice
-        };
-
-        var result = await _productService.GetProductsWithFilterAsync(request);
-        return Ok(result);
-    }
 
     /// <summary>
     /// Yeni ürün oluşturur
@@ -233,7 +208,7 @@ public class ProductsController : ControllerBase
     [ProducesResponseType(typeof(ProductDto), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<ActionResult<ProductDto>> UpdateProduct(int id, [FromBody] UpdateProductDto updateProductDto)
+    public async Task<ActionResult<ProductDto>> UpdateProduct(Guid id, [FromBody] UpdateProductDto updateProductDto)
     {
         try
         {
@@ -258,7 +233,7 @@ public class ProductsController : ControllerBase
     [HttpDelete("{id}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<IActionResult> DeleteProduct(int id)
+    public async Task<IActionResult> DeleteProduct(Guid id)
     {
         try
         {
@@ -279,7 +254,7 @@ public class ProductsController : ControllerBase
     [HttpHead("{id}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<IActionResult> CheckProductExists(int id)
+    public async Task<IActionResult> CheckProductExists(Guid id)
     {
         var exists = await _productService.ExistsAsync(id);
         return exists ? Ok() : NotFound();

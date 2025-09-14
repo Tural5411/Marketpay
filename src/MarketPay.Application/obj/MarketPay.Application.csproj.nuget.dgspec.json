@@ -1,26 +1,24 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\tural.abdulkhaligov\\Desktop\\Marketpay\\src\\MarketPay.Application\\MarketPay.Application.csproj": {}
+    "C:\\Users\\Tural\\OneDrive\\Desktop\\Marketpay\\src\\MarketPay.Application\\MarketPay.Application.csproj": {}
   },
   "projects": {
-    "C:\\Users\\tural.abdulkhaligov\\Desktop\\Marketpay\\src\\MarketPay.Application\\MarketPay.Application.csproj": {
+    "C:\\Users\\Tural\\OneDrive\\Desktop\\Marketpay\\src\\MarketPay.Application\\MarketPay.Application.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\tural.abdulkhaligov\\Desktop\\Marketpay\\src\\MarketPay.Application\\MarketPay.Application.csproj",
+        "projectUniqueName": "C:\\Users\\Tural\\OneDrive\\Desktop\\Marketpay\\src\\MarketPay.Application\\MarketPay.Application.csproj",
         "projectName": "MarketPay.Application",
-        "projectPath": "C:\\Users\\tural.abdulkhaligov\\Desktop\\Marketpay\\src\\MarketPay.Application\\MarketPay.Application.csproj",
-        "packagesPath": "C:\\Users\\tural.abdulkhaligov\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\tural.abdulkhaligov\\Desktop\\Marketpay\\src\\MarketPay.Application\\obj\\",
+        "projectPath": "C:\\Users\\Tural\\OneDrive\\Desktop\\Marketpay\\src\\MarketPay.Application\\MarketPay.Application.csproj",
+        "packagesPath": "C:\\Users\\Tural\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Tural\\OneDrive\\Desktop\\Marketpay\\src\\MarketPay.Application\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Program Files\\DevExpress 23.1\\Components\\Offline Packages",
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\tural.abdulkhaligov\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\DevExpress 18.2.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\DevExpress 23.1.config",
+          "C:\\Users\\Tural\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\DevExpress 20.1.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -28,17 +26,16 @@
           "net8.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\DevExpress 18.2\\Components\\System\\Components\\Packages": {},
+          "C:\\Program Files (x86)\\DevExpress 20.1\\Components\\System\\Components\\Packages": {},
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\DevExpress 23.1\\Components\\System\\Components\\Packages": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "C:\\Users\\tural.abdulkhaligov\\Desktop\\Marketpay\\src\\MarketPay.Domain\\MarketPay.Domain.csproj": {
-                "projectPath": "C:\\Users\\tural.abdulkhaligov\\Desktop\\Marketpay\\src\\MarketPay.Domain\\MarketPay.Domain.csproj"
+              "C:\\Users\\Tural\\OneDrive\\Desktop\\Marketpay\\src\\MarketPay.Domain\\MarketPay.Domain.csproj": {
+                "projectPath": "C:\\Users\\Tural\\OneDrive\\Desktop\\Marketpay\\src\\MarketPay.Domain\\MarketPay.Domain.csproj"
               }
             }
           }
@@ -74,6 +71,10 @@
             "FluentValidation.DependencyInjectionExtensions": {
               "target": "Package",
               "version": "[11.9.2, )"
+            },
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[9.0.9, )"
             }
           },
           "imports": [
@@ -92,27 +93,25 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.303/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.302/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\tural.abdulkhaligov\\Desktop\\Marketpay\\src\\MarketPay.Domain\\MarketPay.Domain.csproj": {
+    "C:\\Users\\Tural\\OneDrive\\Desktop\\Marketpay\\src\\MarketPay.Domain\\MarketPay.Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\tural.abdulkhaligov\\Desktop\\Marketpay\\src\\MarketPay.Domain\\MarketPay.Domain.csproj",
+        "projectUniqueName": "C:\\Users\\Tural\\OneDrive\\Desktop\\Marketpay\\src\\MarketPay.Domain\\MarketPay.Domain.csproj",
         "projectName": "MarketPay.Domain",
-        "projectPath": "C:\\Users\\tural.abdulkhaligov\\Desktop\\Marketpay\\src\\MarketPay.Domain\\MarketPay.Domain.csproj",
-        "packagesPath": "C:\\Users\\tural.abdulkhaligov\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\tural.abdulkhaligov\\Desktop\\Marketpay\\src\\MarketPay.Domain\\obj\\",
+        "projectPath": "C:\\Users\\Tural\\OneDrive\\Desktop\\Marketpay\\src\\MarketPay.Domain\\MarketPay.Domain.csproj",
+        "packagesPath": "C:\\Users\\Tural\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Tural\\OneDrive\\Desktop\\Marketpay\\src\\MarketPay.Domain\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Program Files\\DevExpress 23.1\\Components\\Offline Packages",
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\tural.abdulkhaligov\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\DevExpress 18.2.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\DevExpress 23.1.config",
+          "C:\\Users\\Tural\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\DevExpress 20.1.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -120,9 +119,8 @@
           "net8.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\DevExpress 18.2\\Components\\System\\Components\\Packages": {},
+          "C:\\Program Files (x86)\\DevExpress 20.1\\Components\\System\\Components\\Packages": {},
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\DevExpress 23.1\\Components\\System\\Components\\Packages": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -162,7 +160,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.303/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.302/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

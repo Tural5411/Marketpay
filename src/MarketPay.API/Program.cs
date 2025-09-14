@@ -17,7 +17,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 
 // Entity Framework
-builder.Services.AddDbContext<ApplicationDbContext>(options =>
+builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 // AutoMapper
@@ -109,7 +109,7 @@ app.MapControllers();
 // Ensure database is created
 using (var scope = app.Services.CreateScope())
 {
-    var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+    var context = scope.ServiceProvider.GetRequiredService<AppDbContext>();
     try
     {
         context.Database.EnsureCreated();

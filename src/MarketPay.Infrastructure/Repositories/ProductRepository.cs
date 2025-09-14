@@ -8,7 +8,7 @@ namespace MarketPay.Infrastructure.Repositories;
 
 public class ProductRepository : Repository<Product>, IProductRepository
 {
-    public ProductRepository(ApplicationDbContext context) : base(context)
+    public ProductRepository(AppDbContext context) : base(context)
     {
     }
 
@@ -16,29 +16,30 @@ public class ProductRepository : Repository<Product>, IProductRepository
     {
         return await _dbSet
             .Where(p => p.IsActive)
-            .OrderBy(p => p.Name)
+            .Include(p => p.Market)
+            .OrderBy(p => p.ProductName)
             .ToListAsync();
     }
 
-    public async Task<IEnumerable<Product>> GetProductsByCategoryAsync(string category)
+    public async Task<IEnumerable<Product>> GetByMarketIdAsync(Guid marketId)
     {
         return await _dbSet
-            .Where(p => p.Category == category && p.IsActive)
-            .OrderBy(p => p.Name)
+            .Where(p => p.MarketId == marketId && p.IsActive)
+            .Include(p => p.Market)
+            .OrderBy(p => p.ProductName)
             .ToListAsync();
     }
 
-    public async Task<IEnumerable<Product>> GetProductsInStockAsync()
+    public async Task<Product?> GetByBarcodeAsync(string barcode)
     {
         return await _dbSet
-            .Where(p => p.Stock > 0 && p.IsActive)
-            .OrderBy(p => p.Name)
-            .ToListAsync();
+            .Include(p => p.Market)
+            .FirstOrDefaultAsync(p => p.ProductBarcode == barcode);
     }
 
-    public async Task<bool> IsProductNameExistsAsync(string name, int? excludeId = null)
+    public async Task<bool> IsBarcodeExistsAsync(string barcode, Guid? excludeId = null)
     {
-        var query = _dbSet.Where(p => p.Name.ToLower() == name.ToLower());
+        var query = _dbSet.Where(p => p.ProductBarcode == barcode);
         
         if (excludeId.HasValue)
         {
@@ -53,9 +54,9 @@ public class ProductRepository : Repository<Product>, IProductRepository
         return await GetPaginatedAsync(p => p.IsActive, request);
     }
 
-    public async Task<PaginatedResult<Product>> GetProductsByCategoryPaginatedAsync(string category, PaginationRequest request)
+    public async Task<PaginatedResult<Product>> GetByMarketPaginatedAsync(Guid marketId, PaginationRequest request)
     {
-        return await GetPaginatedAsync(p => p.Category == category && p.IsActive, request);
+        return await GetPaginatedAsync(p => p.MarketId == marketId && p.IsActive, request);
     }
 
     public async Task<PaginatedResult<Product>> SearchProductsPaginatedAsync(string searchTerm, PaginationRequest request)
@@ -63,80 +64,10 @@ public class ProductRepository : Repository<Product>, IProductRepository
         var lowerSearchTerm = searchTerm.ToLower();
         return await GetPaginatedAsync(p => 
             p.IsActive && 
-            (p.Name.ToLower().Contains(lowerSearchTerm) || 
-             (p.Description != null && p.Description.ToLower().Contains(lowerSearchTerm)) ||
-             (p.Category != null && p.Category.ToLower().Contains(lowerSearchTerm))), 
+            (p.ProductName.ToLower().Contains(lowerSearchTerm) || 
+             p.ProductBarcode.ToLower().Contains(lowerSearchTerm) ||
+             p.ProductUnit.ToLower().Contains(lowerSearchTerm)), 
             request);
-    }
-
-    public async Task<PaginatedResult<Product>> GetProductsWithFilterAsync(ProductPaginationRequest request)
-    {
-        var query = _dbSet.AsQueryable();
-
-        // Filtreleme
-        if (request.IsActive.HasValue)
-        {
-            query = query.Where(p => p.IsActive == request.IsActive.Value);
-        }
-
-        if (!string.IsNullOrWhiteSpace(request.Category))
-        {
-            query = query.Where(p => p.Category == request.Category);
-        }
-
-        if (!string.IsNullOrWhiteSpace(request.SearchTerm))
-        {
-            var lowerSearchTerm = request.SearchTerm.ToLower();
-            query = query.Where(p => 
-                p.Name.ToLower().Contains(lowerSearchTerm) || 
-                (p.Description != null && p.Description.ToLower().Contains(lowerSearchTerm)) ||
-                (p.Category != null && p.Category.ToLower().Contains(lowerSearchTerm)));
-        }
-
-        if (request.MinPrice.HasValue)
-        {
-            query = query.Where(p => p.Price >= request.MinPrice.Value);
-        }
-
-        if (request.MaxPrice.HasValue)
-        {
-            query = query.Where(p => p.Price <= request.MaxPrice.Value);
-        }
-
-        // Sıralama
-        query = request.SortBy switch
-        {
-            ProductSortBy.Name => request.SortDirection == SortDirection.Ascending 
-                ? query.OrderBy(p => p.Name) 
-                : query.OrderByDescending(p => p.Name),
-            ProductSortBy.Price => request.SortDirection == SortDirection.Ascending 
-                ? query.OrderBy(p => p.Price) 
-                : query.OrderByDescending(p => p.Price),
-            ProductSortBy.Stock => request.SortDirection == SortDirection.Ascending 
-                ? query.OrderBy(p => p.Stock) 
-                : query.OrderByDescending(p => p.Stock),
-            ProductSortBy.CreatedAt => request.SortDirection == SortDirection.Ascending 
-                ? query.OrderBy(p => p.CreatedAt) 
-                : query.OrderByDescending(p => p.CreatedAt),
-            ProductSortBy.UpdatedAt => request.SortDirection == SortDirection.Ascending 
-                ? query.OrderBy(p => p.UpdatedAt) 
-                : query.OrderByDescending(p => p.UpdatedAt),
-            ProductSortBy.Category => request.SortDirection == SortDirection.Ascending 
-                ? query.OrderBy(p => p.Category) 
-                : query.OrderByDescending(p => p.Category),
-            _ => request.SortDirection == SortDirection.Ascending 
-                ? query.OrderBy(p => p.Id) 
-                : query.OrderByDescending(p => p.Id)
-        };
-
-        var totalCount = await query.CountAsync();
-
-        var items = await query
-            .Skip(request.Skip)
-            .Take(request.PageSize)
-            .ToListAsync();
-
-        return new PaginatedResult<Product>(items, totalCount, request.PageNumber, request.PageSize);
     }
 }
 

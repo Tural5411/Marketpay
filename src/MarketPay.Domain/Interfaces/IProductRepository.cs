@@ -6,12 +6,11 @@ namespace MarketPay.Domain.Interfaces;
 public interface IProductRepository : IRepository<Product>
 {
     Task<IEnumerable<Product>> GetActiveProductsAsync();
-    Task<IEnumerable<Product>> GetProductsByCategoryAsync(string category);
-    Task<IEnumerable<Product>> GetProductsInStockAsync();
-    Task<bool> IsProductNameExistsAsync(string name, int? excludeId = null);
+    Task<IEnumerable<Product>> GetByMarketIdAsync(Guid marketId);
+    Task<Product?> GetByBarcodeAsync(string barcode);
+    Task<bool> IsBarcodeExistsAsync(string barcode, Guid? excludeId = null);
     Task<PaginatedResult<Product>> GetActiveProductsPaginatedAsync(PaginationRequest request);
-    Task<PaginatedResult<Product>> GetProductsByCategoryPaginatedAsync(string category, PaginationRequest request);
+    Task<PaginatedResult<Product>> GetByMarketPaginatedAsync(Guid marketId, PaginationRequest request);
     Task<PaginatedResult<Product>> SearchProductsPaginatedAsync(string searchTerm, PaginationRequest request);
-    Task<PaginatedResult<Product>> GetProductsWithFilterAsync(ProductPaginationRequest request);
 }
 

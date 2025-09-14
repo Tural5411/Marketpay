@@ -9,16 +9,16 @@ namespace MarketPay.Infrastructure.Repositories;
 
 public class Repository<T> : IRepository<T> where T : BaseEntity
 {
-    protected readonly ApplicationDbContext _context;
+    protected readonly AppDbContext _context;
     protected readonly DbSet<T> _dbSet;
 
-    public Repository(ApplicationDbContext context)
+    public Repository(AppDbContext context)
     {
         _context = context;
         _dbSet = context.Set<T>();
     }
 
-    public virtual async Task<T?> GetByIdAsync(int id)
+    public virtual async Task<T?> GetByIdAsync(Guid id)
     {
         return await _dbSet.FindAsync(id);
     }
@@ -52,14 +52,15 @@ public class Repository<T> : IRepository<T> where T : BaseEntity
         return entity;
     }
 
-    public virtual async Task DeleteAsync(int id)
+    public virtual async Task DeleteAsync(T entity)
     {
-        var entity = await GetByIdAsync(id);
-        if (entity != null)
-        {
-            _dbSet.Remove(entity);
-            await _context.SaveChangesAsync();
-        }
+        _dbSet.Remove(entity);
+        await _context.SaveChangesAsync();
+    }
+
+    public virtual async Task<bool> ExistsAsync(Guid id)
+    {
+        return await _dbSet.AnyAsync(e => e.Id == id);
     }
 
     public virtual async Task<int> CountAsync()

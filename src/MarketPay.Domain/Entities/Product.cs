@@ -5,21 +5,25 @@ namespace MarketPay.Domain.Entities;
 public class Product : BaseEntity
 {
     [Required]
+    public Guid MarketId { get; set; }
+
+    [Required]
     [StringLength(200)]
-    public string Name { get; set; } = string.Empty;
+    public string ProductBarcode { get; set; } = string.Empty;
 
     [Required]
-    public decimal Price { get; set; }
+    [StringLength(200)]
+    public string ProductName { get; set; } = string.Empty;
 
     [Required]
-    public int Stock { get; set; }
+    public decimal ProductPrice { get; set; }
 
-    [StringLength(1000)]
-    public string? Description { get; set; }
-
+    [Required]
     [StringLength(50)]
-    public string? Category { get; set; }
+    public string ProductUnit { get; set; } = string.Empty;
 
-    public bool IsActive { get; set; } = true;
+    // Navigation properties
+    public Market Market { get; set; } = null!;
+    public ICollection<CartItem> CartItems { get; set; } = new List<CartItem>();
 }
 

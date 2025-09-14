@@ -5,17 +5,17 @@ namespace MarketPay.Application.Interfaces;
 
 public interface IProductService
 {
-    Task<ProductDto?> GetByIdAsync(int id);
+    Task<ProductDto?> GetByIdAsync(Guid id);
     Task<PaginatedResult<ProductDto>> GetAllAsync(PaginationRequest request);
     Task<IEnumerable<ProductDto>> GetActiveProductsAsync();
-    Task<IEnumerable<ProductDto>> GetProductsByCategoryAsync(string category);
+    Task<IEnumerable<ProductDto>> GetByMarketIdAsync(Guid marketId);
+    Task<ProductDto?> GetByBarcodeAsync(string barcode);
     Task<PaginatedResult<ProductDto>> GetActiveProductsPaginatedAsync(PaginationRequest request);
-    Task<PaginatedResult<ProductDto>> GetProductsByCategoryPaginatedAsync(string category, PaginationRequest request);
+    Task<PaginatedResult<ProductDto>> GetByMarketPaginatedAsync(Guid marketId, PaginationRequest request);
     Task<PaginatedResult<ProductDto>> SearchProductsPaginatedAsync(string searchTerm, PaginationRequest request);
-    Task<PaginatedResult<ProductDto>> GetProductsWithFilterAsync(ProductPaginationRequest request);
     Task<ProductDto> CreateAsync(CreateProductDto createProductDto);
-    Task<ProductDto> UpdateAsync(int id, UpdateProductDto updateProductDto);
-    Task DeleteAsync(int id);
-    Task<bool> ExistsAsync(int id);
+    Task<ProductDto> UpdateAsync(Guid id, UpdateProductDto updateProductDto);
+    Task DeleteAsync(Guid id);
+    Task<bool> ExistsAsync(Guid id);
 }
 
