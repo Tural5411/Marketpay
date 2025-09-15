@@ -1,11 +1,13 @@
 using Microsoft.AspNetCore.Mvc;
 using MarketPay.Application.DTOs.Cart;
 using MarketPay.Application.Interfaces;
+using Asp.Versioning;
 
 namespace MarketPay.API.Controllers.V1;
 
 [ApiController]
-[Route("api/v1/[controller]")]
+[ApiVersion("1.0")]
+[Route("api/v{version:apiVersion}/[controller]")]
 [Produces("application/json")]
 public class CartsController : ControllerBase
 {

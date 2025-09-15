@@ -2,11 +2,13 @@ using Microsoft.AspNetCore.Mvc;
 using MarketPay.Application.DTOs.Product;
 using MarketPay.Application.Interfaces;
 using MarketPay.Domain.Common;
+using Asp.Versioning;
 
 namespace MarketPay.API.Controllers.V1;
 
 [ApiController]
-[Route("api/v1/[controller]")]
+[ApiVersion("1.0")]
+[Route("api/v{version:apiVersion}/[controller]")]
 [Produces("application/json")]
 public class ProductsController : ControllerBase
 {

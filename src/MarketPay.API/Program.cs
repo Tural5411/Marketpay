@@ -9,6 +9,7 @@ using MarketPay.Application.Validators;
 using MarketPay.Domain.Interfaces;
 using MarketPay.Infrastructure.Data;
 using MarketPay.Infrastructure.Repositories;
+using MarketPay.API.Extensions;
 using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -26,14 +27,11 @@ builder.Services.AddAutoMapper(typeof(AutoMapperProfile));
 // FluentValidation
 builder.Services.AddFluentValidationAutoValidation()
                 .AddFluentValidationClientsideAdapters();
-builder.Services.AddValidatorsFromAssemblyContaining<CreateProductDtoValidator>();
+builder.Services.AddValidatorsFromAssembly(typeof(CreateProductDtoValidator).Assembly);
 
-// Repository pattern
-builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
-builder.Services.AddScoped<IProductRepository, ProductRepository>();
-
-// Application services
-builder.Services.AddScoped<IProductService, ProductService>();
+// Repositories & Services
+builder.Services.AddRepositories();
+builder.Services.AddApplicationServices();
 
 // API versioning - .NET 8 approach
 builder.Services.AddApiVersioning(opt =>
